@@ -1,0 +1,6 @@
+.popup__auth-image-error {
+  background-image: url(../../../images/error.svg);
+  height: 120px;
+  width: 120px;
+  margin-top: 50px;
+}

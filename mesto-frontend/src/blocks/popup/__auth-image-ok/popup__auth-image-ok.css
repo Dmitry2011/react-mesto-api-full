@@ -1,0 +1,6 @@
+.popup__auth-image-ok {
+  background-image: url(../../../images/ok.svg);
+  height: 120px;
+  width: 120px;
+  margin-top: 50px;
+}

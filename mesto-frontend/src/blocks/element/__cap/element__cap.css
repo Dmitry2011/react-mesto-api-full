@@ -1,0 +1,6 @@
+.element__cap {
+  width: 18px;
+  height: 4px;
+  background: url(../../../images/Cap.svg);
+  margin-bottom: 1px;
+}

@@ -1,0 +1,16 @@
+.element__group {
+  display: block;
+  margin: auto;
+  width: 22px;
+  height: 19px;
+  background: none;
+  background-image: url(../../../images/group.svg);
+  background-repeat: no-repeat;
+  transition: opacity 0.4s ease-in-out;
+  border: none;
+  z-index: 1;
+}
+.element__group:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
