@@ -1,0 +1,9 @@
+.popup__login-link {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: #FFFFFF;
+  margin: 0;
+  margin-right: 5px;
+}

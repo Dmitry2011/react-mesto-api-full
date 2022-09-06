@@ -1,0 +1,17 @@
+.element__delete {
+  border: none;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  align-items: center;
+  padding: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 1;
+}
+.element__delete:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

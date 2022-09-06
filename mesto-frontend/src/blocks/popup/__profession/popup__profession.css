@@ -1,0 +1,12 @@
+.popup__profession {
+  margin: 0 auto 30px;
+  padding: 13px 0 13px;
+  width: 83%;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-width: 1px;
+}

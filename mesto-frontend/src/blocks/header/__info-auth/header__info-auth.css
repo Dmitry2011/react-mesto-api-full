@@ -1,0 +1,11 @@
+.header__info-auth {
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .header__info-auth {
+    margin-right: 8%;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
