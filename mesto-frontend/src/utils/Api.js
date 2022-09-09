@@ -1,3 +1,5 @@
+const token = localStorage.getItem('token');
+
 class Api {
   constructor(config) {
     this._baseUrl = config.baseUrl;
@@ -92,7 +94,7 @@ class Api {
 
     // Метод добавления "лайк"
   addLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: 'PUT',
       headers: {
         authorization: this._token
@@ -103,7 +105,7 @@ class Api {
 
     // Метод удаления "лайк"
   deleteLike(_id) {
-    return fetch(`${this._baseUrl}/cards/likes/${_id}`, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: 'DELETE',
       headers: {
         authorization: this._token
@@ -115,9 +117,9 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: "https://http://dmitrys.nomorepartiesxyz.ru",
+  baseUrl: "https://dmitrys.nomorepartiesxyz.ru/api",
   headers: {
-    authorization: "4ba7d259-729a-410a-84af-52740cfb006a",
+    authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   },
 });

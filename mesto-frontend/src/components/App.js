@@ -68,7 +68,7 @@ function App() {
       });
   };
 
-    // сохраняем токен, проверяем его валибность и отрисовываем в шапке
+    // сохраняем токен, проверяем его валидность и отрисовываем в шапке майл
   React.useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -77,7 +77,7 @@ function App() {
         .then((data) => {
           if (data) {
             setLoggedIn(true);
-            setUserData(data.data.email);
+            setUserData(data.email);
           }
         })
         .catch((error) => {
@@ -154,11 +154,11 @@ function App() {
 
     //Обработчик нажатия кнопки "like"
   const handleCardLike = (card) => {
-    if (card.likes.some(i => i._id === currentUser._id))
+    if (card.likes.some((i) => i === currentUser._id)) {
       api.deleteLike(card._id)
         .then(newCard => replaceCard(newCard))
         .catch((error) => alert(`Не удалось убрать лайк. ${error}`));
-    else
+      } else
       api.addLike(card._id)
         .then(newCard => replaceCard(newCard))
         .catch((error) => alert(`Не удалось добавить лайк. ${error}`));

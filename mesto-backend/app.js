@@ -60,8 +60,8 @@ app.post('/api/signin', celebrate({
 
 app.use(auth);
 
-app.use('/api/', users);
-app.use('/api/', cardRouter);
+app.use('/', users);
+app.use('/', cardRouter);
 app.use('*', (req, res, next) => {
   next(new NotFound('Страница не найдена'));
 });
