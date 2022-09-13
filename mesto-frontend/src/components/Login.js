@@ -5,19 +5,16 @@ const Login = ({ login }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  const resetForm = () => {
-    setEmail("");
-    setPassword("");
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) {
       return;
     }
-    login({ email, password })
-      .then(resetForm)
-      .then(() => history.push("/"));
+    login( email, password )
+      setEmail("");
+      setPassword("");
+      history.push("/");
   };
 
   return (

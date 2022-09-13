@@ -51,14 +51,14 @@ function App() {
   };
 
     // авторизация
-  const login = ({ email, password }) => {
-    return auth
-      .authorize(email, password)
+  const login = ( email, password ) => {
+    auth.authorize( email, password )
       .then((data) => {
-        localStorage.setItem("token", data.token);
+        if (data.token) {
         setLoggedIn(true);
         setUserData(email);
         history.push("/");
+        }
       })
       .catch((error) => {
         setSuccsed(false);
