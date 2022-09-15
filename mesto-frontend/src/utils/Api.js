@@ -122,7 +122,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://dmitrys.nomorepartiesxyz.ru/api",
+  baseUrl: "https://dmitrys.nomorepartiesxyz.ru/api",
   headers: {
     authorization: `Bearer ${token}`,
     "Content-Type": "application/json",

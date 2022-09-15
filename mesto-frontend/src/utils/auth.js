@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://dmitrys.nomorepartiesxyz.ru/api';
+export const BASE_URL = 'https://dmitrys.nomorepartiesxyz.ru/api';
 
 const _handleResponse = (res) => {
   if (res.ok) {
