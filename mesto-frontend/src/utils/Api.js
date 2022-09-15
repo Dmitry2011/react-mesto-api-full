@@ -1,9 +1,10 @@
-const token = localStorage.getItem('token');
+const token = localStorage.getItem("token");
 
 class Api {
   constructor(config) {
     this._baseUrl = config.baseUrl;
     this._token = config.headers.authorization;
+    this._headers = config.headers;
   }
 
     // Метод проверки ответ от сервера
@@ -113,11 +114,15 @@ class Api {
     })
     .then(this._handleResponse)
   }
+
+    // Метод принимает токен и подставляет его в заголовок объекта api
+  getToken = (token) => {
+    this._token =  `Bearer ${token}`
+  }
 }
 
-
 const api = new Api({
-  baseUrl: "https://dmitrys.nomorepartiesxyz.ru/api",
+  baseUrl: "http://dmitrys.nomorepartiesxyz.ru/api",
   headers: {
     authorization: `Bearer ${token}`,
     "Content-Type": "application/json",

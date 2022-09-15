@@ -36,79 +36,90 @@ function App() {
 
   const history = useHistory();
 
-    // регистрация
-  const register = ({ email, password }) => {
-    return auth
-      .register(email, password)
-      .then(() => {
-        setSuccsed(true);
-      })
-      .catch((error) => {
-        setSuccsed(false);
-        console.log(`${error} 400 — Токен не передан или передан не в том формате; 401 — Переданный токен некорректен`)
-      })
-      .finally(setIsInfoToolTipOpen(true));
-  };
+// регистрация
+const register = ({ email, password }) => {
+  return auth
+    .register(email, password)
+    .then(() => {
+      setSuccsed(true);
+    })
+    .catch((error) => {
+      setSuccsed(false);
+      console.log(`${error} 400 — Токен не передан или передан не в том формате; 401 — Переданный токен некорректен`)
+    })
+    .finally(setIsInfoToolTipOpen(true));
+};
 
-    // авторизация
-  const login = ( email, password ) => {
-    auth.authorize( email, password )
-      .then((data) => {
-        if (data.token) {
+  // авторизация
+const login = ( email, password ) => {
+  auth.authorize( email, password )
+    .then((data) => {
+      if (data.token) {
+        const token = localStorage.getItem("token");
+        api.getToken(token);
         setLoggedIn(true);
         setUserData(email);
         history.push("/");
+      }
+    })
+    .catch((error) => {
+      setSuccsed(false);
+      setIsInfoToolTipOpen(true);
+      setLoggedIn(false);
+      console.log(`${error} 400 — не передано одно из полей; 401 — пользователь с email не найден`)
+    });
+};
+
+
+// сохраняем токен, проверяем его валидность и отрисовываем в шапке майл
+React.useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    auth
+      .getData(token)
+      .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+          setUserData(data.email);
         }
       })
       .catch((error) => {
-        setSuccsed(false);
-        setIsInfoToolTipOpen(true);
-        setLoggedIn(false);
-        console.log(`${error} 400 — не передано одно из полей; 401 — пользователь с email не найден`)
+        console.log(error);
       });
-  };
-
-    // сохраняем токен, проверяем его валидность и отрисовываем в шапке майл
-  React.useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      auth
-        .getData(token)
-        .then((data) => {
-          if (data) {
-            setLoggedIn(true);
-            setUserData(data.email);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, []);
-
-    // при перезагрузке странице авторизированному пользователю не нужно повторно вводить логин пароль
-  React.useEffect(() => {
-    if (loggedIn) history.push("/");
-  }, [history, loggedIn]);
-
-    // выход из системы
-  const signOut = () => {
-    localStorage.removeItem("token");
-    history.push("/sign-in");
   }
+}, []);
+
+// при перезагрузке странице авторизированному пользователю не нужно повторно вводить логин пароль
+React.useEffect(() => {
+  if (loggedIn) history.push("/");
+}, [history, loggedIn]);
+
+  // выход из системы
+const signOut = () => {
+  localStorage.removeItem("token");
+  history.push("/sign-in");
+  setLoggedIn(false);
+  setCurrentUser({});
+}
 
   React.useEffect(()=>{
     if (loggedIn){
         // запрос на сервер за данными о пользователе и карточках
-       Promise.all([api.getUserData(), api.getInitialCards()])
-        .then(([userDataResult, initialCardsResult]) => {
-          setCurrentUser(userDataResult);
+      api.getUserData()
+      .then((userDataResult) => {
+        setCurrentUser(userDataResult);
+      })
+      .catch((error) => alert(`${error} Не удалось загрузить данные с сервера`));
+        // запрос на сервер за карточками
+      api.getInitialCards()
+        .then((initialCardsResult) => {
           setCards(initialCardsResult);
         })
         .catch((error) => alert(`${error} Не удалось загрузить данные с сервера`));
-    }
-  }, [loggedIn]
-  )
+
+  }
+}, [loggedIn]);
+
 
     // функция открытия попап изменения аватар
   const handleEditAvatarClick = () => {
